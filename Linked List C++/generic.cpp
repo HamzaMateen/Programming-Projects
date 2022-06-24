@@ -42,11 +42,11 @@ private:
         T data;
         Node* next;
 
-    Node(T val) 
-    : data(val)
-    {
-        next = nullptr;
-    }
+        Node(T val) 
+        : data(val)
+        {
+            next = nullptr;
+        }
     };
     
 private: // globals
