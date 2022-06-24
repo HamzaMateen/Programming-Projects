@@ -75,12 +75,14 @@ int main()
     list.push_at(14, 5000);
     
     std::cout << list.size() << std::endl;
+    
     // print again
     list.print(); 
+    
     std::cout << list.size() << std::endl;
-    // delete last three inputs
+    
     list.pop_at(13);
-   // list.pop_back();
+    // list.pop_back();
     // list.pop_front();
     std::cout << list.size() << std::endl;
     // print once more 
@@ -98,12 +100,8 @@ int main()
     list.clear();
     list.print();
     
-    
     std::cout << "isEmpty : " << list.empty() << std::endl;
-    
-    std::cout << "size: " << list.size();
-    
-    
+    std::cout << "size: " << list.size();  
 return 0;}
 
 
@@ -151,21 +149,8 @@ void LinkedList<T>::reverse()
         current = ahead;       
     }
     // prev at this stage will point to starting node of reversed list
-    head = previous;  
-    
+    head = previous;    
 }
-
-// deleteAt
-// try to stick to conventions :
-/*
-  what will we expect from an at() method?
-  1) the first index is always 0, starting at 1 leads to confusion.
-  2) if at is called with an index out of bounds we should trow an error.
-  - we should add a check method to let the client manually check, for example isValid(int index)
-  So if a client calls at() out of bounds he will be warned
-  3) dont use deleteStart and end
-*/  // done
-
 template<class T>
 void LinkedList<T>::pop_at(int pos)
 {
@@ -209,7 +194,7 @@ void LinkedList<T>::pop_back()
        return;
    }
    /*
-     here you may save a tail pointer in list members to be used here and in a getter tail method
+     here we may save a tail pointer in list members to be used here and in a getter tail method
    */ // done
    Node* ref = head;
        
@@ -251,14 +236,6 @@ void LinkedList<T>::pop_front()
 template<class T>
 void LinkedList<T>::push_at(int pos, T val)
 {
- // here we have different options..
- /*
-  -we can insert before or after an element
-   checking and getting it
-  - we can trow an error.. go and check what STL do in this case
- */
-    /*here sir if u have any other. suggestion please add as i couldn't extract much help from cppreference <stl>, it was hard sorry'*/
-    
     if (pos < 0 || pos > len)
     { 
        std::cout << "[ERROR] index " << pos << " out of range" << std::endl;
