@@ -1,3 +1,7 @@
+// 1. Have node and redux installed.
+// 2. open terminal in the file directory
+// 3. type in 'node redux-tut-node.js'
+
 // import redux
 const redux = require('redux');
 
