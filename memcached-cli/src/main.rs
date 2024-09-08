@@ -1,14 +1,23 @@
+// Entry point for the CLI
 use clap::parser::ValueSource;
 use clap::{Arg, ArgAction, ArgMatches, Command, Subcommand};
+use cli::create_cli;
 use core::fmt;
+use errors::AppError;
+use memcache::tcp_wrapper;
 use std::fmt::Formatter;
 use std::io::{prelude::*, BufReader};
 // use std::net::Ipv4Addr;
 use std::net::TcpStream;
 use std::time::Duration;
 
-// custom
+mod cli;
+mod errors;
+mod memcache;
+mod protocol_api;
+
 /*
+ *
 Authentication
 --------------
 
@@ -28,6 +37,7 @@ of the username/password payload.
   any reason.
 
 */
+
 fn authenticate(conn: &mut TcpStream, username: &String, passwd: &String) -> std::io::Result<()> {
     let credentials = format!("{username} {passwd}\r\n");
     let len = credentials.len() - 2;
@@ -242,82 +252,28 @@ fn set_key(
     Ok(())
 }
 
-fn main() -> std::io::Result<()> {
-    let mut program = clap::Command::new("Memcached Client CLI")
-        .author("Hamza Mateen")
-        .version("1.0")
-        .about("A CLI client for Memcached")
-        .disable_help_flag(true);
-
-    // adding different arguments to our cli program now
-    program = program
-        .arg(
-            Arg::new("help")
-                .long("help")
-                .help("Displays help.")
-                .action(clap::ArgAction::Help),
-        )
-        .arg(
-            Arg::new("host")
-                .short('h')
-                .long("host")
-                .help("Address of the host which the Memcached server is running on")
-                .default_value("localhost"),
-        )
-        .arg(
-            Arg::new("port")
-                .short('p')
-                .long("port")
-                .help("Port which the server is listening on")
-                .default_value("11211"),
-        )
-        .subcommand(
-            Command::new("set")
-                .about("Set a key-value pair")
-                .arg(Arg::new("key").help("Specifies the key").required(true))
-                .arg(Arg::new("value").help("Specifies the value").required(true))
-                .arg(
-                    Arg::new("noreply")
-                        .help("Suppress server's response.")
-                        .short('n')
-                        .long("noreply")
-                        .action(ArgAction::SetTrue),
-                ),
-        )
-        .subcommand(
-            Command::new("delete")
-                .about("Remove a key-value pair")
-                .arg(
-                    Arg::new("key")
-                        .help("Specifies the <key> to be removed")
-                        .required(true),
-                )
-                .arg(
-                    // took some good time to learn this bit lol
-                    Arg::new("noreply")
-                        .help("Suppresses server's response")
-                        .short('n')
-                        .long("noreply")
-                        .action(ArgAction::SetTrue),
-                ),
-        );
-
+fn main() -> std::result::Result<(), AppError> {
+    let cli = create_cli();
     // using the CLI
-    let matches = program.get_matches();
+    let matches = cli.get_matches();
 
     let host = matches.get_one::<String>("host").unwrap();
     let port = matches.get_one::<String>("port").unwrap();
 
     println!("host: {}, port: {}", host, port);
 
+    let stream_wrapper = tcp_wrapper::TcpStreamWrapper::new(host, port)?;
+    let connection = stream_wrapper.stream;
+
     // const HOST_ADDR: Ipv4Addr = Ipv4Addr::new(127, 0, 0, 1);
-    let mut stream = connect(&host, &port).unwrap();
-    stream.set_read_timeout(Some(Duration::from_secs(10)))?;
-
-    authenticate(&mut stream, &String::from("venom1"), &String::from("code1"))?;
-
-    let mut keys = ["placeholder", "else", "bro"];
-    query_data(&mut stream, &mut keys)?;
+    // let mut stream = tcp_wrapper::TcpStreamWrapper::new(host, port);
+    // let mut stream = connect(&host, &port).unwrap();
+    // stream.set_read_timeout(Some(Duration::from_secs(10)))?;
+    //
+    // authenticate(&mut stream, &String::from("venom1"), &String::from("code1"))?;
+    //
+    // let mut keys = ["placeholder", "else", "bro"];
+    // query_data(&mut stream, &mut keys)?;
 
     /*
     // let's delete some data
@@ -358,8 +314,8 @@ fn main() -> std::io::Result<()> {
     //     Err(e) => println!("ValueSetError: {e}"),
     // }
     //
-    let mut fetch_these = vec!["name", "mylove"];
-    query_data(&mut stream, &mut fetch_these)?;
+    // let mut fetch_these = vec!["name", "mylove"];
+    // query_data(&mut stream, &mut fetch_these)?;
 
     Ok(())
 }
