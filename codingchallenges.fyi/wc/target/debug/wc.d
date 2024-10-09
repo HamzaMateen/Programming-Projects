@@ -1,0 +1,1 @@
+/home/ycombinator/opensource/Programming-Projects/codingchallenges.fyi/wc/target/debug/wc: /home/ycombinator/opensource/Programming-Projects/codingchallenges.fyi/wc/src/cli.rs /home/ycombinator/opensource/Programming-Projects/codingchallenges.fyi/wc/src/main.rs

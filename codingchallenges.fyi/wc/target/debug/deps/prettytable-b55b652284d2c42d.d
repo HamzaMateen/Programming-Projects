@@ -1,0 +1,10 @@
+/home/ycombinator/opensource/Programming-Projects/codingchallenges.fyi/wc/target/debug/deps/libprettytable-b55b652284d2c42d.rmeta: /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/lib.rs /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/cell.rs /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/format.rs /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/row.rs /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/utils.rs /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/csv.rs
+
+/home/ycombinator/opensource/Programming-Projects/codingchallenges.fyi/wc/target/debug/deps/prettytable-b55b652284d2c42d.d: /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/lib.rs /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/cell.rs /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/format.rs /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/row.rs /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/utils.rs /home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/csv.rs
+
+/home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/lib.rs:
+/home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/cell.rs:
+/home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/format.rs:
+/home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/row.rs:
+/home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/utils.rs:
+/home/ycombinator/.cargo/registry/src/index.crates.io-6f17d22bba15001f/prettytable-rs-0.10.0/src/csv.rs:
