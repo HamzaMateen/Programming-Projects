@@ -1,0 +1,31 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-leam-base.jsoup.mid-953.idx-954.19.mutant..leam-base.jsoup.mid-953.idx-954.19.mutant?diff=split&w=1
+
+
+Explanation:
+
+
+The line *tb.error(this)* basically "reports* or logs an error when an active element e.g "a", "b", or "i" etc, is already present in the *formattingElements* array. This line doesn't stop the parsing process therefore, it's safe to remove - only the errors wouldn't be logged making parsing mistakes harder to locate.
+
+On removing "tb.removeFromStack(remainingA)": 
+
+*HtmlTreeBuilder* utilizes two different data structures to synchronize parsing state: 
+
+->  ArrayList<Element> stack; // stack of open elements (inherited from TreeBuilder class)
+->  ArrayList<Element> formattingElements; // active (open) formatting elements
+
+The *stack* is used to maintain DOM state while *formattingElements* array is used to track active formatting elements to retain formatting context of HTML. It includes tags such as: "a", "i", "b" etc.
+
+
+Let's say the parser encounters an invalid anchor (a) tag, then proper parsing would require removing the already opened tag from BOTH arrays, by manually supplying a *closing* anchor tag (</a>). After this, a new anchor tag would be created internally to account for the currently encountered one, and pushed to both stacks so that the new anchor tag can be registered and made part of the existing parsing state.
+
+If we remove the line "tb.removeFromStack(remainingA)", we run the risk of desynchronizing these two context structures. Now, if a nested anchor tag is encountered, it would remove it from *formattingElements* stack but it would still remain part of DOM *stack* resulting in a parsing state inconsistency. This should lead to bad formatting and unpredictable DOM tree.
+
+
+
+
+
+
+
+
+

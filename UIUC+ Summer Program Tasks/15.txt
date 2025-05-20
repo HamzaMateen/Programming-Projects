@@ -1,0 +1,10 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..mubert-base.jackson-databind.mid-3238.idx-210245.87.mutant?diff=split&w=1
+
+
+Explanation:
+
+The mutan't isn't buggy because it just adds a redundant check: *(_annotations.size() >= 0)*. This must be true when checking whether an annotation exists for a class (cls) within *_annotations* map or not.
+
+This check is redundant because it asserts that when checking for an annotation, the size of *_annotations* map must be 0 or any positive size which is always the case. As, a *HashMap* by definition cannot have a -ve size.
+

@@ -1,0 +1,22 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-jxpath.mid-772.idx-536.3.mutant..codet5-base.commons-jxpath.mid-772.idx-536.3.mutant?diff=split&w=1
+
+
+Explanation:
+
+We know that Java's * Integer.MIN_VALUE = -2147483648 *. 
+In original version, this value is added to whatever *identityHashCode* values is returned for *CollectionPointer* object, therefore, addition of most negative number (MIN_VALUE) and a positive (identity hash code) would result in a consistent identity value, that represents the object uniquely.
+
+In mutant's version, this MIN_VALUE is subtracted from the hash code, which essentially means it's added to it because subtraction of a -ve value turns into an addtion, so:
+
+identityHashCode(collection) - (-2147483648) 
+
+becomes:
+
+identityHashCode(collection) + 2147483648
+
+a 32 bit integer can't represent 2147483648, therefore it wraps around and avoids overflow, ending up the same value as in the original version.
+
+Therefore, this change likely doesn't introduce any bugs to the code original and behaves the same by managing to represent different CollectionPointer objects with unique hash codes.
+
+

@@ -1,0 +1,54 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..mubert-base.commons-collections.mid-2031.idx-31091.93.mutant?diff=split&w=1#diff-69c36fdba9eb94b3d2be41e306f820cd32696f78e7933314bc65131e49dc023dR194
+
+Explanation:
+
+The mutant would function equivalent to the original version, because the extra conditions introduced into check are logically redundant.
+
+Elaboration:
+
+Let:
+
+X = (iterator instanceof ListIterator)
+Y = (currentIndex == 0)
+
+then we can re-write it as follows:
+
+if (X && (Y || X)) { /* ... */ }
+
+Here are the possible combinations: 
+
+1. X = true, Y = true:
+
+    -> true && (true || true)   
+    -> true && true
+    -> true
+
+2. X = true, Y = false 
+    
+    -> true && (false || true)
+    -> true && true
+    -> true
+
+3. X = false, Y = true 
+
+    -> false && (true || false) 
+    -> false && true
+    -> false
+
+4. X = false, Y = false
+
+    -> false && (false || false)
+    -> false && false 
+    -> false
+
+Taking a close look, it is clear each expression evaluates to whatever is the logical value of *X*, hence it proves that: X = (X && (Y || X))
+
+
+
+
+
+
+
+
+

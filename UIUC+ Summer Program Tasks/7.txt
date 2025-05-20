@@ -1,0 +1,8 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..codebert-base.commons-lang.mid-1119.idx-16720.2.mutant?diff=split&w=1
+
+    Explanation:
+
+The mutant is buggy because the *useIdentityHashCode* parameter in mutant's code receives a *false* value as the expression *(useIdentityHashCode && false)* always evaluates to a false value regardless of the value assigned to *useIdentityHashCode* parameter. This is due to logical working of the *AND (&&)* operator.
+
+On the contrary, the same function *setUseIdentityHashCode* in the original code receives a different value for its parameter depending on the value of *useIdentityHashCode* which could either be *true* or *false*  

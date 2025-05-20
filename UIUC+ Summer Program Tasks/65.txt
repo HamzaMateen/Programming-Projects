@@ -1,0 +1,14 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.jfreechart.mid-3583.idx-2682.1.mutant..NatGen-base.jfreechart.mid-3583.idx-2682.1.mutant?diff=unified&w
+
+Explanation:
+
+The mutant code sets *1 value greater* than the intended *radius* provided by the caller, therefore it should be considered a bug.
+
+For example, if the user wants smallest possible "radius" for the dial by passing *1* for "radius" parameter, but the mutant would still set the radius to *2*, which could be bigger than expected. The caller could pass *0* to account for this, but that would trigger an "IllegalArgumentException". 
+
+The mutant simply breaks the intended functionality of the *setRadius* method. This is off-by-one error.
+
+
+
+

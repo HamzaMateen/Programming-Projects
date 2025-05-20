@@ -1,0 +1,22 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-leam-base.commons-lang.mid-2872.idx-2873.3.mutant..leam-base.commons-lang.mid-2872.idx-2873.3.mutant?diff=unified&w
+
+Explanation:
+
+The *PaddedNumberField* class implements *NumberRule* interface which is an extension of *Rule* interface. The *Rule* interface features *estimateLength()* method that is used to estimate the length of a particular part of the datetime string *after* rule has been applied to it.
+
+For instance for today's date e.g Thu, 1 May 2025 ....,
+the transformation for *month* would be: 
+
+"May" -> TwoDigitNumberField for "MM" (month) -> estimateLength() returns 2 because May is represented as "05".
+
+The *estimateLength()* method is invoked for each part of datetime string, and an approximate length is procured for each corresponding *rule* accumulating into a number that's later on used for creation of a StringBuilder object. This object is instantiated with enough length to accomodate the final string without *reallocations*.
+
+The important bit is that, *mSize* holds this length for each rule and *estimateLength()* returns this length per invocation.
+
+The mutant compromises this functionality by returning 1 for each rule which is incorrect and would result in wrong estimate rule lengths leading towards creation of StringBuilder object with shorter than appropriate length. This would result in string reallocations** compromising *performance* that's being offered by this class. 
+
+**String reallocations imply *resizing* operation and pertains memory copying.
+
+The mutant could even break functionality, if existing code doesn't perform resizing and takes the *maxLengthEstimate* as the final source of truth.
+

@@ -1,0 +1,7 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-leam-base.commons-jxpath.mid-1341.idx-1342.4.mutant..leam-base.commons-jxpath.mid-1341.idx-1342.4.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant shouldn't be buggy because *exception* itself is of type "Exception" so explicitly casting it to "Exception" would have the same effect as the original.
+

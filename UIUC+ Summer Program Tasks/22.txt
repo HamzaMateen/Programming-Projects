@@ -1,0 +1,8 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.commons-collections.mid-4321.idx-3503.1.mutant..codebert-base.commons-collections.mid-4321.idx-3503.1.mutant?diff=unified&w=
+
+Explanation:
+The mutant should be buggy because returning a *null* value instead of a valid next element from the iterator when *next* is called, is neither correct nor intended behaviour.
+
+Apart from that, this would also break the *chaining* functionality where multiple *next()* calls are chained together to retrieve an element by skipping intermediate elements.
+

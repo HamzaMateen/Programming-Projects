@@ -1,0 +1,51 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..NatGen-base.gson.mid-599.idx-30120.2.mutant?diff=split&w=1
+
+Explanation:
+
+TL;DR:
+
+boolean matchRawType = exactType.getType() == exactType.getRawType();
+matchRawType && exactType.getType() == type.getRawType()
+
+is equivalent to: 
+
+matchRawType = true
+matchRawType && exactType.getType() == type.getRawType()
+
+END_TL;DR
+
+Reasoning:
+
+It wasn't obvious from the surface whether making *matchRawType = true* would have any effects on the code or not, so I had to dig deeper. 
+
+In the code, *matchRawType* is being passed to *SingleTypeFactory*'s constructor; which in turn basically assigns it, internally, as-is to a variable. 
+
+CODE: 
+
+SingleTypeFactory(Object typeAdapter, TypeToken<?> exactType, boolean matchRawType, Class<?> hierarchyType) {
+      ...
+      ... 
+      this.exactType = exactType;
+      this.matchRawType = matchRawType; <--- HERE
+      this.hierarchyType = hierarchyType;
+    } 
+
+END_CODE
+
+Since, we are returning this *TypeAdapterFactory*, it is reasonable to think that it gets used to create *TypeAdapter*s, which is exactly what its *create* method does. 
+
+The *TypeAdapterFactory* features a *create* method, that implements how an adapter for a certain *Type* object is created. 
+
+The *create* method contains the follow LOC:
+
+CODE:
+...
+...
+boolean matches = exactType != null
+          ? exactType.equals(type) || matchRawType && exactType.getType() == type.getRawType()
+          : hierarchyType.isAssignableFrom(type.getRawType());
+END_CODE:
+
+Here, *matchRawType* is basically used to control the assertion of whether the passed *exactType* has the same *Raw Type* and *Full Type*. This is to prevent creation of adapters for granular types by ignoring parameterized types of generics, such as, List<String> or List<Integer>, therefore, only creating adapters for base class i.e *List.class*
+

@@ -1,0 +1,10 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..leam-base.jsoup.mid-272.idx-184684.14.mutant?diff=unified&w=
+
+Explanation:
+
+The mutant is buggy because it breaks the *chaining* capability *FormElement* objects. 
+
+In original version, when an *Element* is added to the list of elements in a form, it would return the updated form by returning *this (current instance)*.
+
+The mutant breaks this functionality by returning *null* instead. This would force the programmer to always refer back to original instance in the code to get an updated form, which is unintuitive and less ergonomic.

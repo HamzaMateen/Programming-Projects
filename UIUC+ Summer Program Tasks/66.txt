@@ -1,0 +1,14 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-compress.mid-3292.idx-2399.3.mutant..codet5-base.commons-compress.mid-3292.idx-2399.3.mutant?diff=split&w=1
+
+Explanation:
+
+The *endOfMethod()* method features 3 "if-statements". The first two are easy to analyze because they check if "tempMethodRVPA" or "tempMethodRIPA" are *not* null in order to execute the code within. These codeblocks assign *null* to these variable at the end of their execution. So even if *endOfMethod()* is run back to back for 5 times (as being done in mutant's version), these blocks "won't" execute because the required condition wouldn't be satisfied. So further *annotations* are not added to RVPA or RIPA bands and parameter annotation processing is effectively skipped.
+
+As with the 3rd "if" block, it checks if the last entry added to *codeFlags* corresponds to the default code attrbute with the *LocalVariableTable* flag *(1 << 2)* and there are no entries for local variables *(lastLocalVariableTable == 0)*. 
+
+If these conditions are true, the flag is removed from *codeFlags* to save space during output generation.
+
+The 3rd if block if run contiguously would perform same operation on global lists *codeFlags* and *codeLocalVariableTableN* that might produce side effects because these are processed in earlier calls.
+
+Therefore, the mutant could exhibit unexpected behaviour and be buggy.

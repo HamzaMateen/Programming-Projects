@@ -1,0 +1,10 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..codet5-base.commons-collections.mid-1699.idx-3464.2.mutant?diff=split&w=1
+
+Explanation:
+
+Passing a *null* to the first predicate's *evaluate* method would result in *undefined behavior* because it depends on how it is defined to handle a null argument. 
+
+It could return *true*, *false* or may even throw exceptions in case *evaluate* has a *null-unsafe* implementation. The interface function itself doesn't forbid passing of a *null* value to it.
+
+This changes the *OrPredicate*'s behaviour, as it's not reliably evaluating both predicates for the passed object, therefore, it's a bug.

@@ -1,0 +1,32 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-leam-base.commons-collections.mid-3581.idx-3582.39.mutant..leam-base.commons-collections.mid-3581.idx-3582.39.mutant?diff=split&w=1#diff-3fb4aa42f689951e47e434d27e076512fa82cdfe11a0d1f3503c1d0e3b6cfdd0L335
+
+Explanation:
+
+The mutant is buggy because it invokes a version of *remove* method which isn't exposed by the parent *AbstractMapMultiSet*.
+
+Explanation: 
+
+The class *UniqueiSetIterator* has a reference named *parent* to an abstract class *AbstractMapMultiSet*. The class offers a *remove(object, int)* method to be overridden by its extending classes.
+
+When we change line 341 from *parent.remove(lastElement, count)* to *parent.remove(lastElement)*, we are basically invoking an implementation of *remove* method that doesn't exist. Which should effectively result in an error.
+
+Now, it appears that *AbstractMapMultiSet* in turn extends another abstract class called *AbstractMultiSet* that does present such a signature for *remove* method:
+
+at line 207: in     UIUCPlus/commons-collections/src/main/java/org/apache/commons/collections4/multiset/AbstractMultiSet.java
+
+we have:
+
+@Override
+public boolean remove(final Object object) {
+    return remove(object, 1) != 0;
+}
+
+which removes 1 occurrence of a given object from *parent* multiset. Unfortunately, I am not very well versed with Java and can't figure whether it allows a child class to inherit or directily expose a far-parent method like this. But it would be logical if it doesn't to avoid second-guessing by the programmer.
+
+Moreover, even if it did, this would still defeat the intended purpose of *remove* which is meant to remove all occurrences of a certain object from the multiset.
+
+
+
+
+

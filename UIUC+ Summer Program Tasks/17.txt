@@ -1,0 +1,8 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..codebert-base.joda-time.mid-3854.idx-65107.1.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant is not buggy because the expression *(iZone.isFixed() && true)* would still evaluate to whatever value is returned by *isFixed()*. 
+
+The logical AND (&&) only evaluates to *true* if both operands are true. Since, 2nd operand is always true (&& true), the result depends on *iZone.isFixed()*'s value.

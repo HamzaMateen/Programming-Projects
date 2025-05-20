@@ -1,0 +1,6 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.jsoup.mid-917.idx-771.3.mutant..codebert-base.jsoup.mid-917.idx-771.3.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant introduces a redundant ternary expression which would result in the same behaviour as original. If *state* variable is null, then a *null* would be returned otherwise *state* would be returned, which effectively the same returning *state* altogether.

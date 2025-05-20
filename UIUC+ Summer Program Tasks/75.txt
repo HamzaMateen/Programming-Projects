@@ -1,0 +1,9 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/blob/main/commons-jxpath/src/main/java/org/apache/commons/jxpath/ri/model/NodeIterator.java#L22
+
+Explanation:
+
+The *NodeIterator* interface which is implemented by *JDOMNamespaceIterator* asserts that *getPosition()* method must return the current iterator position.
+
+The mutant changes the *JDOMNamespaceIterator*'s implementation of this method. The *getPosition()* now always returns the first element (index 0) position, instead of returning the current position in the iterator. This change of behaviour would result in harder to find bugs because the *getPosition* wouldn't work as intended in the downstream code. 
+

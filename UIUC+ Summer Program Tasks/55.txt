@@ -1,0 +1,9 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-codec.mid-848.idx-650.2.mutant..codet5-base.commons-codec.mid-848.idx-650.2.mutant?diff=unified&w
+
+Explanation:
+
+This mutant introduces a bug in the *decode(String)* method. Instead of returning the decoded form of the quoted-printable input string *sourceStr*, it always returns the *"decodeError"* string literal, which leads to incorrect behaviour.
+
+The program remains syntactically correct because the method still returns a *String* and does not break any code that depends on it. But it is logically invalid and can lead to errors later when the "decoded" strings are needed in downstream code that rely on accurate decoding.
+

@@ -1,0 +1,20 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..codebert-base.commons-lang.mid-453.idx-15251.2.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant is buggy because the library should fail to compile now.
+
+The *nextFloat* method actually calls an overloaded method of the same name which expects a starting and an ending range of the form *[start, end)*. 
+
+It requires that both range values must be *non-negative*, in order to return a valid pseudorandom float value back. But this is not the case anymore in the mutant's code. 
+
+The arguments passed to the method is *Float.MinValue* for both range values which is a -ve value (-149), therefore, it should result in a compilation failure.
+
+relevant code:
+
+public static float nextFloat(final float startInclusive, final float endExclusive) {
+        Validate.isTrue(endExclusive >= startInclusive,
+                "Start value must be smaller or equal to end value.");
+        Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
+

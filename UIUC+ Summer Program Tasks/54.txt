@@ -1,0 +1,16 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.commons-codec.mid-490.idx-435.1.mutant..codebert-base.commons-codec.mid-490.idx-435.1.mutant?diff=split&w=1
+
+Explanation:
+
+
+The *isNextChar* method checks whether the next character following the given position *index* in a *StringBuilder* matches a specified character *c*.
+
+In mutant's modified version of *isNextChar* method, if either the input *index < 0* or *index >= (builder.length -1)*, then it would return *true* instead of *false* (as by original version), therefore it's a bug. When the index is out of these bounds, this method's output would incorrectly indicate a match for the input character *c*.
+
+On the contrary, if the mutant's version gets to evaluate the *if* condition, then the output is completely determined by the expression present inside it, and would be the same as original. 
+
+Hence, the output would be incorrect when the index is out of these bounds. It could result in a logical error in the calling code.
+
+
+

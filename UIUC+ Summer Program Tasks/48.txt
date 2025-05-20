@@ -1,0 +1,9 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-mubert-base.commons-compress.mid-1009.idx-1010.130.mutant..mubert-base.commons-compress.mid-1009.idx-1010.130.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant is not buggy because it just adds a redundant check (flags != other.flags) that is ORed (||) with the pre-existing condition. OR (||) returns true if either of the cases is true.
+
+This condition to check if both objects have the same flags already takes place down in the body of *equals()*, so in the mutant's version, it would only cause an earlier return if the objects' flags wouldn't match.
+

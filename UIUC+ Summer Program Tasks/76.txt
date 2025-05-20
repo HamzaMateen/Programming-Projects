@@ -1,0 +1,9 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-leam-base.gson.mid-521.idx-522.14.mutant..leam-base.gson.mid-521.idx-522.14.mutant?diff=split&w=1
+
+Explanation:
+
+The line added by mutant tries to access a non-existent symbol (*item*) that's actually declared in the following loop and is limited to scope of that loop only. Thefore, this should result in a *cannot find symbol* compile-time error, rendering the mutant buggy.
+
+
+

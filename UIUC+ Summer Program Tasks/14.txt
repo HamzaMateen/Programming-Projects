@@ -1,0 +1,12 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..mubert-base.commons-math.mid-1452.idx-142329.196.mutant?diff=split&w=1
+
+Explanation:
+
+The original and simple conditional check is configured into a *compound* one comprising two checks *ORed (||)* together.
+
+The mutant has a couple of issues this time.
+
+Firstly, a semantic error has been introduced by replacing *sample2* and *length* with out of context variables named *two* and *length*, respectively. These variables are neither declared nor imported in current file. This should result in a *compilation* failure.
+
+Secondly, the condition *!(length < 0)* is logically invalid. It implies that as long as length is *non-negative*, the exception *DimensionMismatchException* should be thrown, which basically reverses the logic of the original code.

@@ -1,0 +1,9 @@
+The output remains the same in the mutant version because *integer division* is taking place AND the value before division is EVEN. With integer division, the *remainder* part is truncated. This is also why *long* is being used as the return type of the method. 
+
+As the value for *MILLIS_PER_YEAR* is *31556952000*, which is an even number, an addition of a *1* to the expression (1970L + MILLIS_PER_YEAR) doesn't change the value after division in the mutant version, because the quotient of the result remains the same.
+
+But if MILLIS_PER_YEAR were an odd value; adding a 1 would've made it an even value where the result would be incremented by 1.
+
+CODE:
+
+https://github.com/developing-research-projects/UIUCPlus/compare/main..codet5-base.joda-time.mid-2528.idx-56043.1.mutant?diff=unified&w=

@@ -1,0 +1,8 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..NatGen-base.commons-lang.mid-534.idx-14220.2.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant's version only adds a simple *print* statement to display the received value on the *console* before returning it. That doesn't change the output or behavior of the code.
+
+It can be argued, though, that the function isn't *pure* anymore because it produces a side effect as it performs an impure I/O operation.

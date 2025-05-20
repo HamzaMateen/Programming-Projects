@@ -1,0 +1,12 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-mubert-base.commons-compress.mid-1005.idx-1006.1079.mutant..mubert-base.commons-compress.mid-1005.idx-1006.1079.mutant?diff=split&w=1
+
+Explanation:
+
+The change int mutant should result in a bug. The condition *bytesRead != BoundedSeekableByteChannelInputStream.MAX_BUF_LEN) || (bytesRead != 0* will always evaluate to true because value of *byteRead* can't be both *MAX_BUF_LEN* (8192) or *0* simulatenously. 
+
+It's not equivalent to the original condition: *bytesRead >= 0*, which evaluates to false when no bytes are remaining to be read (bytesRemaining <= 0), indicating end of the buffer.
+
+When end-of-stream is encountered by *read()* function above, it returns -1. The check in original version checked for this -1 to prevent reading when buffer was empty.
+
+But as the check introduced by mutant always evaluates to true, including when *bytesRead == -1*, it allows invlaid buffer reads and breaks end-of-stream handling.

@@ -1,0 +1,16 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-mubert-base.jackson-databind.mid-1941.idx-1942.117.mutant..mubert-base.jackson-databind.mid-1941.idx-1942.117.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant is buggy and should result in a *compilation* failure.
+
+Explanation:
+In the copy-constructor of *StdValueInstatiator* class, a non-existentent member variable *src.type* is being accessed through the *src* parameter at line 100, which actually isn't defined anywhere within the *StdValueInstatiator* class.
+
+The *StdValueInstatiator* extends the *ValueInstantiator* class which also doesn't declare any member named *type*, so it couldn't be inherited from there.
+
+Even the *Serializable* interface implemented by the class is a *marker* interface which doesn't expose any variables whatsoever, therefore, the *type* couldn't be exposed from there either.
+
+Hence, this would result in a compile-time error stating that the variable *type* wasn't found.
+

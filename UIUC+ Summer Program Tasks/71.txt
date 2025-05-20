@@ -1,0 +1,27 @@
+code:
+https://github.com/developing-research-projects/uiucplus/compare/formatted-main-codet5-base.jfreechart.mid-5908.idx-4297.3.mutant..codet5-base.jfreechart.mid-5908.idx-4297.3.mutant?diff=split&w=1
+
+explanation:
+
+It seems like the mutant introduces a bug by changing in the "if" statement from *(value instanceof Stroke)* to *(cellHasFocus)*. 
+
+The *getListCellRendererComponent(...)* method returns a renderer for a *stroke* sample. This implies that this method would always return a *Component (renderer in this case)* for *each* cell that features a different *Stroke* sample based on the provided value. 
+This method isn't supposed to return a sample ONLY when the cell is being *focused* because that would omit all other choices from the list being rendered which the user can choose their stroke sample from.
+
+The *cellHasFocus* argument could be used for a different purpose such as changing the background color of the cell or a pop up effect (if possible) or changing border color.
+
+Next, although the change is syntactically sound, yet it might result in a runtime crash when the *value* of *Object* doesn't turn out to be an *instanceof* of *Stroke*, and thenceforth, not castable into *Stroke* type. Which could trigger *ClassCastException*.
+
+
+explanation end:
+
+*****please note******
+
+I mistakenly added a link to the problem itself instead of my answer to the previous problem. Please consider reading it from here:
+
+Diff link:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.commons-compress.mid-3423.idx-2526.3.mutant..NatGen-base.commons-compress.mid-3423.idx-2526.3.mutant?diff=split&w=1
+
+Answer (to my Task #70):
+
+The mutant should be buggy because it wouldn't add the "length" of first element value, that is, "elementValue[0]" since the loop skips the first index by starting from "i = 1" instead of "i = 0" as in original.

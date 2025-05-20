@@ -1,0 +1,6 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.commons-compress.mid-3423.idx-2526.3.mutant..NatGen-base.commons-compress.mid-3423.idx-2526.3.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant is buggy because it wouldn't add the "length" of first element value, that is, "elementValue[0]" since the loop skips the first index by starting from "i = 1" instead of "i = 0".

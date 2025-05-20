@@ -1,0 +1,11 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.jsoup.mid-731.idx-510.3.mutant..codet5-base.jsoup.mid-731.idx-510.3.mutant?diff=split&w=1
+
+Explanation:
+
+First the mutant contains a bug because it stats at "(i = size - 1)" and stops at "(i = 1)" instead of "(i=0)", therefore, it skips the "index 0". If the element being searched is the first element of the list, then it wouldn't be found.
+
+The mutant is also buggy because it returns the index "i" of the last matched *element* that is being searched instead of the first one. This wouldn't be the case if the *elements* List were guaranteed to contain unique elements. Since elements could be repeated in the list, the reversal of loop direction alters the behaviour of original code. The search is nonetheless, exhaustive and even identical in case of non-repeated elements list.
+
+Suggestion:
+The original version shouldn't be returning "0" which is a valid index in a list. Could return "-1" to indicate absence of the element. Perhaps, the original code instance is buggy too.

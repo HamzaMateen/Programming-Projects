@@ -1,0 +1,13 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.jsoup.mid-1387.idx-960.2.mutant..codet5-base.jsoup.mid-1387.idx-960.2.mutant?diff=split&w=1
+
+Explanation:
+
+The *toString* method for the *Comment* tag should return a valid HTML comment. The mutant alters the string representation produced by the *toString* method, meaning a proper comment won't be returned.
+
+If we check the *toString* method implementation of other tags such as **StartTag**, **EndTag**, etc., it's clear that the *toString* method is used to wrap a token's content inside an appropriate string.
+
+The mutant compromises this for the **Comment** tag by changing the padding strings from ["<!--", "-->"] to ["<", "-->"], which doesn't represent an HTML comment.
+
+
+

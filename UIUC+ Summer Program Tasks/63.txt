@@ -1,0 +1,23 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.jackson-databind.mid-7131.idx-5366.1.mutant..NatGen-base.jackson-databind.mid-7131.idx-5366.1.mutant?diff=unified&w
+
+Explanation:
+
+The original code would return  (most common ancestor) if the *parent* of the input *cls* were not *null*.
+
+_unknownType() returns CORE_TYPE_OBJECT.
+
+CORE_TYPE_OBJECT is a SimpleType that represents the java.lang.Object type in Jackson's type system.
+
+SimpleType represents non-array, non-generic types such as String, Integer, or Object etc.
+
+Explanation:
+
+The original code for *_bogusSuperClass(cls)* checks if the input "cls" has no parent; if it is "java.lang.Object" itself then return "null" (since it has no super class) otherwise return *TokenFactory.uknownType()*, which is a constant "SimpleType" representing "java.lang.Object", regardless what "parent" actually is. It works as a placeholder to let caller know that type is unknown hence assume *Object*.
+
+The *SimpleType* is a *JavaType* that represents non-generic, non-array like classes such as String, Integer and Object etc, in Jackson library.
+
+The mutant effectively changes this behaviour. It checks if the *parent* is a *String* or sub-class of *String*; if true, it returns object of type *Class<? extends String>*, otherwise it throws *ClassCastException* if the *parent* doesn't represent a sub-class of the *String*. As it doesn't match the return type of the method, it would lead to a potential *runtie* crash when the input param "cls" is non-String class. 
+
+
+

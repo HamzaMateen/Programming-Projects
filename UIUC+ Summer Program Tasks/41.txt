@@ -1,0 +1,29 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.joda-time.mid-2854.idx-2526.3.mutant..codebert-base.joda-time.mid-2854.idx-2526.3.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant is buggy because now the *convertLocalToUTC* method would not be able to detect DST (Daylight Saving Transition) jumps when trying to convert local time to UTC.
+
+Elaboration:
+The signature for this method is as follows: 
+
+convertLocalToUTC(long instantLocal, 
+                  boolean strict,
+                  long originalInstantUTC)
+
+The *originalInstantUTC* parameter is passed as a reference instant to determine appropriate time offset in case of DST jumps. If during conversion, there happened to have occurred a DST jump (time gap or overlap), the value offsets from *originalInstantUTC* and *instantLocal* wouldn't match because offset of *originalInstantUTC* is before DST transition. 
+
+The method would then have to use heuristics to resolve this time discrepancy via *adjusting* or *erroring* through invocation of *convertLocalToUTC(instantLocal, strict)* method at line 1024 - [UIUCPlus/joda-time/src/main/java/org/joda/time/DateTimeZone.java]
+
+Example:
+
+Karachi (Pakistan) holds standard time of UTC+5:00. We are 5 hours ahead of Universal Coordinated Time. Usually, DST is NOT observed here but let's suppose that it is. 
+
+Let's say a spring jump happens from 2:00 PM to 3:00 PM on some random summer day. Then Karachi's Standard Time would become UTC+6:00. 
+
+If we convert from local time to UTC on that day, say at 4:00 PM, its offset would be UTC+6:00 because it is AFTER DST transition, whereas the offset of *originalInstantUTC* would be UTC+5:00 as it happens BEFORE the transition. The function would be able to detect this difference and fall back to standard *convertLocalToUTC(instantLocal, strict)* method to correctly handle this.
+
+The returned UTC time should be 10:00 AM instead of 11:00 AM at 4:00 PM in Karachi that day. This also makes sense, because we effectively would reach 4:00 PM 1 hour too early that day.
+
+For the *originalInstantUTC* parameter to *convertLocalToUTC* method, the mutant replaces instant *instant* with *instantLocal* which is already *post jump* and would result in asynchronized or wrong time calculation because the method wouldn't detect any difference of offsets and would return UTC instant that would be offset by 1 extra hour.

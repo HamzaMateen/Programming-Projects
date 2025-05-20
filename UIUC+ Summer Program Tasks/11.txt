@@ -1,0 +1,17 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..NatGen-base.commons-codec.mid-279.idx-802.3.mutant?diff=split&w=1
+
+Explanation:
+
+This one seems tricky to me. I re-state the definition of a *bug* for my argument's sake:
+
+bug: 
+We define a bug as a syntactic change that will also change the output and behavior of the code. (from the provided manual)
+
+in the mutant's version, the *hash* is multiplied with a constant int of value 31, which certainly changes the output of the method *hash32*, from the original version, but it doesn't change the computation behavior of the code. It will always provide a unique *hash* for a unique *byte array*, therefore, I don't think it's a bug. 
+
+Also, *MurmurHash32* class isn't intended for cryptographic purposes but rather for *general hash-based loopkups*, so it shouldn't be much of a deal I believe.
+
+
+
+

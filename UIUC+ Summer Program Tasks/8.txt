@@ -1,0 +1,7 @@
+Code:
+
+Explanation:
+
+The mutant is buggy because now, the opposite value of *randomStart* is being returned.
+
+For example, if the user opted to choose *start index* randomly, the getter method *isRandomStart* would return *false* where, in fact, it should be returning *true* to reflect that choice.

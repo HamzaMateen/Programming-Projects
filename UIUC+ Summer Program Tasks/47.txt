@@ -1,0 +1,45 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.commons-codec.mid-789.idx-664.3.mutant..codebert-base.commons-codec.mid-789.idx-664.3.mutant?diff=split&w=1
+
+Explanation:
+
+The multiplication of *i* by *2* would result in a bug. 
+
+Elaboration:
+
+The *i* is used as an index for treversing the *input* string being *phoneticised*.
+
+The *getI()* method is used in 2 contexts:
+
+1. In step 1, when source language string is *encoded* (or phoneticised) into language-specific representation. 
+
+2. In step 2, when this encoded string is transformed into language-independent *pan-english* format for cross-language comparison.
+
+In both of these contexts, the *invoke()* method is called before each call site of *getI()*. The *invoke()* method is responsible for character by character parsing of the source string, matching pre-defined phonetic rules and outputting a phonetic representation in either steps. 
+This method increments the internal index *i* by an appropriate length called the *patternLength*. This length is calculated by examining all the rules matched against a character in an iteration.
+
+For example: 
+let source string is "physics" and i = 0, initally.
+In first iteration, letter 'p' is matched. All the rules against 'p' are fetched from the rules map. The best matching rule would be 'ph' based on source string yielding phonetic representation of /f/ (to the best of my knowledge).
+
+since two letter of the soruce string are phoneticised simulatanteously, the patternLength = 2, and i would be incremented by 2 instead of 1 yielding *i = 2* for next iteration.
+
+Now when getI() returns i*2 in the following snippet:
+
+******
+// loop over each char in the input - we will handle the increment manually
+for (int i = 0; i < input.length(); ) {
+    final RulesApplication rulesApplication =
+        new RulesApplication(rules, input, phonemeBuilder, i, maxPhonemes).invoke();
+        
+    i = rulesApplication.getI(); <--- HERE
+
+    phonemeBuilder = rulesApplication.getPhonemeBuilder();
+}
+*****
+
+It would result in skipping of essential characters, thereby resulting in weak or wrong phonetic representation of the input string.
+
+For example: in 2nd iteration for that "physics" string, 
+i*2 = 2*2 = 4, which would begin phoneticisation at letter 'i', skipping 'y' and 's'.
+

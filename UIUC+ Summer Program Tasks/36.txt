@@ -1,0 +1,11 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.jackson-core.mid-654.idx-537.2.mutant..codebert-base.jackson-core.mid-654.idx-537.2.mutant?diff=split&w=1
+
+Explanation:
+
+The *TokenStreamFactory* is an *abstract* class that can't be instantiated, which by extension requires that its non-static member methods must be abstract as well, whose implementation would be provided by sub classes that extend it.
+
+The original version *declares* an abstract member method called *JsonParser(Reader r)* and doesn't provide its definition, therefore it's valid.
+
+The mutant provides a *definition* too in addition to the *declaration* of this method which is syntactically wrong and would lead to failed compilation of the library.
+ 

@@ -1,0 +1,17 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-csv.mid-10.idx-25.1.mutant..codet5-base.commons-csv.mid-10.idx-25.1.mutant?diff=split&w=1
+
+Explanation:
+
+The source code for *requireNonNull(...)* is:
+
+public static <T> T requireNonNull(T obj, String message) {
+        if (obj == null)
+            throw new NullPointerException(message);
+        return obj;
+}
+src: https://github.com/openjdk-mirror/jdk7u-jdk/blob/master/src/share/classes/java/util/Objects.java#L199
+
+
+We can see that the mutant seemingly replaces *requireNonNull(..)* with its internal code, hence it achieves the same result as the original: to throw *NullPointerException(msg)* when *obj* is null.
+So, the mutant isn't buggy.

@@ -1,0 +1,6 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-jxpath.mid-875.idx-609.3.mutant..codet5-base.commons-jxpath.mid-875.idx-609.3.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant isn't buggy because the sum of i and j is 3 and not 4, therefore, "(return i + j == 4)" always returns *false* which is the same as in original version.

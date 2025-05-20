@@ -1,0 +1,7 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.commons-codec.mid-83.idx-49.1.mutant..NatGen-base.commons-codec.mid-83.idx-49.1.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant's version of *getDefaultBufferSize()* returns 1 greater than the actual *DEFAULT_BUFFER_SIZE*. The method is inteneded to return the *default* buffer size, so modifying this value would change the behaviour of the program. This should conclude that mutant is buggy.
+

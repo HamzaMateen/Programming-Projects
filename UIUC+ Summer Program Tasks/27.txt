@@ -1,0 +1,14 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-leam-base.gson.mid-716.idx-717.24.mutant..leam-base.gson.mid-716.idx-717.24.mutant?diff=split&w=1
+
+
+Explanation:
+
+
+Mutant introduces syntactical as well as logical errors in the updated version.
+
+First of all, the *StringReader* class' constructor *StringReader(String s)* requires a *String* source to turn it into a character stream,  is not provided on line 92. This won't let the code compile. The constructor being used *StringReader()* with no String source provided, is not defined.
+
+Secondly, there's a clear *Type Mismatch* between instances of  *StringReader* and *JsonReader* classes, therefore, they can't be assigned to each other.
+
+Finally, even if these problems are fixed, there are references to *jr* variable that has been removed from this mutant, also resulting in compile time errors.

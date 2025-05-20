@@ -1,0 +1,10 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..codebert-base.jackson-databind.mid-1779.idx-40420.2.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant should be buggy because it changes the *isAnnotationProcessingEnabled()* method to check the *CAN_OVERRIDE_ACCESS_MODIFIERS* flag instead of the *USE_ANNOTATIONS* flag. 
+The change is syntactically correct because both are legitimate flags from *MapperFeature* enum, but it would violate the method's contract (purpose) by returning information that is irrelevant to *annotation processing*. This would lead incorrect behaviour.
+
+
+

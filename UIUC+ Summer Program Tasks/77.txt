@@ -1,0 +1,8 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.jackson-core.mid-1000.idx-730.2.mutant..codet5-base.jackson-core.mid-1000.idx-730.2.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant introduces a bug by changing the *getCurrentName()* method to throw a *checked exception*. This would force the downstream code to either handle the exception using a *try-catch* block or *propagate* it by declaring it in the method signature. 
+
+This changes original behavior of the code and would require manual refactoring in the calling function.

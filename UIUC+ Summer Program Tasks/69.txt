@@ -1,0 +1,12 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.commons-codec.mid-115.idx-79.3.mutant..NatGen-base.commons-codec.mid-115.idx-79.3.mutant?diff=split&w=1
+
+Explanation:
+
+The *Charset* class supports multiple character sets, for example: US-ASCII, ISO-8859-1, UTF-8, UTF-16BE, UTF-16, UTF-16.
+
+The *getCharsetName()* method in original code would return the name of the current *charset* selected, which could be any of the above.
+
+The mutant changes this by always returning the name of 7 bit charset, that is "US-ASCII" for each invocation regardless of the *actual* charset chosen.
+
+

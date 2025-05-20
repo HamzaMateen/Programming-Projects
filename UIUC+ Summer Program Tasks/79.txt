@@ -1,0 +1,55 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.joda-time.mid-1011.idx-885.1.mutant..codebert-base.joda-time.mid-1011.idx-885.1.mutant?diff=split&w=1
+
+Explanation:
+
+Backdrop:
+In different calendar systems such as Japanese, Islamic or Buddhist chronologies; an Era refers to top-level division of time, where a Year is a subdivision within that era.
+
+The abstract *Chronology* class provides a common interface to work with these calendar constructs from different timelines consistently. Different calendar systems extend this class and then provide their own implementations for the given methods with respect to their inner workings. 
+
+Elaboration:
+The mutant changes *getChronology().yearOfEra()* to *getChronology().era()* which syntactically is a valid change because both of these return an object of *DateTimeField* data-type. This type features common methods such as *get/set* to get or set the information related to the type. 
+
+But semantically, these methods' output differs based on the fact whether it's an "era" or a "yearOfEra" object.
+
+*******
+For example:
+
+// Islamic date
+DateTime islamicDate = new DateTime(IslamicChronology.getInstance());
+
+// Islamic calendar features only one agreed upon era -> Anno Higerae (After Migration)
+DateTime islamicEra = islamicDate.era()
+
+// But it has ~1446 years by now
+DateTime nextYear = islamicDate.yearOfEra()
+
+// so if we try to *get* the name of "era" vs "yearOfEra"
+// we will get different results
+
+// returns *1* because there's only one era (Anno Higerae)
+int eraPeriod = islamicDate.era().get(islamicDate); 
+
+// would return *1446* for year to which *islamicDate* belongs
+int islamicYear = islamicDate.yearOfEra().get(islamicDate);
+
+*******
+
+This shows how the mutant would introduce a bug that's not easy to catch and requires 
+good testing. Simpler reason that this change is a bug is that the *yearOfEra()* method is producing an *era* object, which is actually the same the one returned by *era* method in the same class. This change would affect date conversions.
+
+Simpler exmaple:
+We expect to change Islamic year 1446 to Gregorian year but since our method *yearOfEra* returns *1* (for era) instead of 1446, we would instead map the first Islamic year to Gregorian one which could result in 622 AD instead of 2025 AD.
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,37 @@
+Code: 
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.jackson-databind.mid-4711.idx-3996.2.mutant..codebert-base.jackson-databind.mid-4711.idx-3996.2.mutant?diff=split&w=1
+
+
+Interesting bits from Java:
+
+Yes, Java allows you to define static nested classes inside interfaces.
+
+In your case:
+
+public interface JsonObjectFormatVisitor {
+    // ...
+
+    public static class Base implements JsonObjectFormatVisitor {
+        // implementation
+    }
+}
+
+It still only gets extended for custom re-implementation. Since, class is static, it's methods are independent of its instances anyway.
+
+Provides a template or base class that implements an interface with empty methods. This allows you to subclass and override only what you need.
+
+Example:
+
+public class MyVisitor extends JsonObjectFormatVisitor.Base {
+    @Override
+    public void property(BeanProperty prop) {
+        // Only override this method
+    }
+}
+
+A static member class can be seen as an ordinary class that is declared inside another class. It does not need an instance of the enclosing class to be instantiated. Since no instance is required, it has no access to instance methods and variables from the enclosing class. It is able to access class members though, even if they are private. 
+(https://stackoverflow.com/a/29260653/11631083)
+
+Explanation:
+
+The mutant's change would result in a bug because it clearly blocks the program thread when the constructor of default implementation class *Base* within interface *JsonObjectFormatVisitor* is called with a serialization provider *p*. The constructor simply introduces an *infinite* while loop, instead of assigning the received provider *p* to the internal *_provider*. 

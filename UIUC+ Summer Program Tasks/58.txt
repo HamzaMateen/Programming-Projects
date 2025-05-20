@@ -1,0 +1,23 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-jxpath.mid-930.idx-656.2.mutant..codet5-base.commons-jxpath.mid-930.idx-656.2.mutant?diff=split&w=1
+
+Explanation:
+
+Syntactically, the mutant is not buggy:
+
+The original code for *getNamespaceURI()* method of *DomAttributePointer* class always returns *null*.  
+It invokes its parent, i.e., NodePointer's *getNamespaceURI()* method, which also returns *null*. So regardless of whether *prefix* is null or not, this method returns null.
+
+The mutant changes this slightly by returning an *empty* string instead of *null* when the fetched *prefix* is null. It is still *syntactically* valid because the method's return type is *String*.
+
+Semantically: 
+
+IN DOM Level 2 Specification, the empty string ("") is meant to be a *valid* namespace URI, whereas *null* indicates the absence of a namespace. [*src]
+
+So, returning *null* when *prefix = null* to indicate "namespace-agnosticness" is semantically more valid than returning an empty string ("") that qualifies as a valid *namespaceURI*.
+
+Hence, the mutant is buggy because it would break XMLPATH specification.
+
+
+[*src]: Section 1.1.8 - XML Namespaces @ https://www.w3.org/TR/DOM-Level-2-Core/
+

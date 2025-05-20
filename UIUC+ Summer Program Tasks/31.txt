@@ -1,0 +1,13 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.jackson-dataformat-xml.mid-391.idx-294.3.mutant..NatGen-base.jackson-dataformat-xml.mid-391.idx-294.3.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant is not buggy because the *serializeValue* method isnide *XmlSerializerProvider* class defines *value* to be of *Object* type, which means it can take on any value as long as it's derived from java.lang.Object.
+
+The mutant basically intercepts this value and checks if it's of *String* type, and then converts it into an *Integer* which is essentially a sub-type of *Object*, therefore it can be passed to *serializeValue* method without any problem.
+
+The Jackson (parsing library) should have defined a specialized internal serializer that handles values of *Integer* type. 
+
+The mutant does not introduce any bugs, but some redundant code.
+

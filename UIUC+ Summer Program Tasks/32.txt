@@ -1,0 +1,11 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.commons-cli.mid-111.idx-86.3.mutant..NatGen-base.commons-cli.mid-111.idx-86.3.mutant?diff=split&w=1
+
+
+Explanation:
+
+The original function would throw *NullPointerException* implicitly anyway because it doesn't handle or catch it explicitly in try-catch block.
+
+The mutant only makes it explicit by placing a *null* check for the input string, however, it still throws the same *NullPointerException* exception. 
+
+In this way, the mutant is "not" buggy since no behaviour change happened.

@@ -1,0 +1,14 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-compress.mid-3496.idx-2555.2.mutant..codet5-base.commons-compress.mid-3496.idx-2555.2.mutant?diff=unified&w
+
+Explanation:
+
+The *java.lang.Object*'s *toString()* method is supposed to be overridden by child classes to offer textual representation of their objects. 
+
+Here, the mutant changes an opening parenthesis "(" to an underscore "-" which doesn't affect the logic (or behaviour) of the code but the computing string can be inconvenient to read.
+
+In light of the bug definition: 
+
+"a bug as a syntactic change that will also change the output and behavior of the code"
+
+The output does change but behavior remains the same, so I don't think it's a bug.

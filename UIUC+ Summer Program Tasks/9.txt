@@ -1,0 +1,15 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..NatGen-base.commons-collections.mid-1748.idx-4044.1.mutant?diff=split&w=1
+
+
+Explanation:
+
+In mutant's code, the loop execution order is reversed which implies that the last-matching *closure* based on a *predicate* gets executed first.
+
+if a functional *all* or *any* type of methods were being implemented, then this wouldn't be a bug because we would simply need to assert that all or any one of the predicates should be *true*, respectively, regardless of their order.
+
+But, in our case, order of execution matters because what happens if the user provided a couples of lists of predicates and corresponding closures and wanted to execute *only* the first closure whose predicate occurred to be true. This is exactly the intended functionality of the *SwitchClosure*. The mutant's code completely reverses that, therefore, the code wouldn't work as intended (Behavioural Change).
+
+This changes the *iteration* count, and consequently the number of *if-statements* executed to find a matching predicate.
+
+As far as purity of the function is concerned, it depends if the user provided *evaluate* and *execute* implemented for *Predicate* and *Closure* interface are *pure*

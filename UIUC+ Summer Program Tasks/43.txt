@@ -1,0 +1,23 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.joda-time.mid-676.idx-542.3.mutant..codet5-base.joda-time.mid-676.idx-542.3.mutant?diff=unified&w
+
+Explanation:
+
+Before mutation, the *minusMillis* was capable of both subtracting and adding *milli seconds* from/to the current *LocalTime* instant. The method basically subtracted the provided *millis*. If negative count was provided, it would become subtracting a negative value which essentially is additon. 
+The *minusMillis* method uses *subtract()* from *DurationField*: 
+
+public long subtract(long instant, int value) {
+    if (value == Integer.MIN_VALUE) {
+        return subtract(instant, (long) value);
+    }
+    return add(instant, -value);
+}
+
+The last line basically negates the provided *millis* value to achieve this. 
+
+The mutant's change alters this behaviour, by ignoring negative values of *millis*, thereby restricting the method to only be capable of "subtracting" milli seconds from the "LocalTime" instant. It won't be able to *add* any durations to current instant through -ve values for milli.
+
+This change of behaviour would render the mutant buggy.
+
+
+

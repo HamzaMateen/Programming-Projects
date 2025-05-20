@@ -1,0 +1,26 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.commons-compress.mid-2729.idx-2029.1.mutant..NatGen-base.commons-compress.mid-2729.idx-2029.1.mutant?diff=split&w=1
+
+
+Explanation:
+
+The mutant is buggy because it compromises the intended functionality of *getOuter()* method which is used to extract *outer* class name from a *Fully Qualified Class Name (FQCN)*. 
+
+In Java, a FCQN comprises the *Outer* and *Inner* class names concatenated together with $ character.
+
+*getOuter()* uses $ sign as a delimeter to extract all but deepest class' name and returns it back as a String.
+
+The mutaint version changes that. It uses a dot (.) as a delimiter instead of $ which is wrong because now, the code would use the index of last occurring dot in a FQCN, and return everything present before it.
+
+For example; If we have an FQCN for a class, such as:
+
+FQCN:   java.util.Map$Entry
+Inner:  Entry
+Outer:  java.util.Map
+
+In this manner:
+
+Mutant returns *java.util* because the last dot occurs before *Map*.
+
+*getOuter()* method would return *java.util.Map* for original implementation.
+

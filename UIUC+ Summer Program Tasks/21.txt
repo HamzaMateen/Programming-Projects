@@ -1,0 +1,20 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..codebert-base.commons-math.mid-4038.idx-29340.2.mutant?diff=unified&w=
+
+Explanation:
+// reference method declaration:
+// computeInterpolatedStateAndDerivatives(mapper, time, theta, thetaH, oneMinusThetaH)
+
+Elaboration:
+
+Changing the order in which the arguemnts are passed to *computeInterpolatedStateAndDerivatives* will likely result in incorrect behaviour or introduce bugs into code.
+
+While the arguments *equationsMapper*, and *time* have been passed correctly, changing the order of rest would result in generation of incorrect interpolated value for a set of *globalPreviousState* and *globalCurrentState*.
+
+The method expects *theta* to be the normalized distance from starting time to interpolation time, but instead it receives the total difference of previous and current states.
+
+similarly, for *thetaH*, the unnormalized time difference of starting time and interpolation time is expected, but rather, normalized difference *theta* is provided. 
+
+This also holds true for last arguement where *thetaH* is provided instead of *oneMinusThetaH*.
+
+Since *computeInterpolatedStateAndDerivatives*'s implementation is delegated to concrete classes, it'd be a bug if an abstract class uses its own method in a wrong way. End user functionality would be compromised.

@@ -1,0 +1,17 @@
+CODE:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..codet5-base.commons-lang.mid-2270.idx-16335.2.mutant?diff=split&w=1
+
+
+good discussion here on 'final' keyword in JAVA
+
+https://stackoverflow.com/questions/500508/why-should-i-use-the-keyword-final-on-a-method-parameter-in-java
+
+*never reassign arguments* - it's a good programming practice.
+
+Explanation:
+
+The mutant isn't buggy because the step of making a *value* upper case by passing it through *toUpperCase* method ignores non-alphabetic values. For example, a *value = "123!"* remains the same *123!* after being transformed into upper case, therefore, this step functions as an invariant and doesn't change the result. 
+
+As long as *value* is well-formed numerical string [*1] , it would be parsed to a double effectively regardless if it is converted to its upper case or not. 
+
+[*1]: By well-formed numerical string I suppose that it consists of numbers only, and doesn't have a scientific-notation representation, for that would perhaps contain alphanumeric values. 

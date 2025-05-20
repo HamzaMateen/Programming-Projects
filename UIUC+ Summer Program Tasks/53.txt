@@ -1,0 +1,11 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-codec.mid-149.idx-97.3.mutant..codet5-base.commons-codec.mid-149.idx-97.3.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant is buggy because it changes the *encodeString(byte[])* method in such a way that it would always return a *null* for every byte array passed to it.
+
+This method internally invokes *StringUtils.newStringUtf8()*, which returns the UTF-8 encoded string asscociated with the byte array or returns *null* if the input is *null*. This basically means that even valid byte arrays would result in a null return value, which might lead to *NullPointerException*s where this method is used.
+
+docs: src line - 412 [https://github.com/developing-research-projects/UIUCPlus/blob/main/commons-codec/src/main/java/org/apache/commons/codec/binary/StringUtils.java#L412]
+

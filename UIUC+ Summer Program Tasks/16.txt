@@ -1,0 +1,15 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..NatGen-base.jsoup.mid-1197.idx-61102.2.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant's version is not buggy, because it is functionally equivalent to original version.
+
+Instead of comparing the enum *TokenType*'s variants *type* and *TypeToken.EOF* directly, it now just compares their string representation to determine whether the token is an *EOF (end of file)* or not. 
+
+We can get the string representation of an enum's variant through the *toString()* method.
+
+Note: 
+In Java, the == operator compares if two variables refer to the same underlying *object*. In mutant's case, this always evaluates to true because both *type.toString()* and *TokenType.EOF.toString()* calls return the same instance's property: *name*. Therefore, toString() can be used here, even if it's not very conventional. For safety sake, the *equals* method can be used for string content comparison instead.
+
+

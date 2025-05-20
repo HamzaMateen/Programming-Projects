@@ -1,0 +1,23 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..NatGen-base.commons-collections.mid-2793.idx-5528.1.mutant?diff=split&w=1
+
+
+Explanation:
+
+Although, the loop variable *i* now begins at a value one greater than the original *length -1*, and similarly ends at a value also one greater than the *0*, but there wouldn't occur any indexing out of bounds when *composite* collection is accessed inside mutant's loop.  
+
+This is because the expression used to index into the *composite* collection is also updated from *i* to *i-1* to account for these changes.
+
+For example, let's test the boundary conditions: 
+
+Let's say *this.composite* has length of 10. Then;
+
+1. Loop beginning
+
+*i* gets initialized to 10, and has the same value for the first iteration. But as the array is indexed, the loop variable is decremented by 1, i.e *(this.composeite[i-1])* evaluating it to value 9. This value is used to index into array, hence preventing indexing out of bounds.
+
+2. Looper termination 
+
+Similary, for the last iteration, the value of *i* is 1 greater than 0, that is *i = 1*, but the indexing part effectively decrements this value by 1 as well, making it 0, thus making the very first element of the collection accessible. The loop is terminated afterwards.
+
+

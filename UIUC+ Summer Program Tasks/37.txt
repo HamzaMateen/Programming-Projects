@@ -1,0 +1,9 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.jsoup.mid-1608.idx-1352.2.mutant..codebert-base.jsoup.mid-1608.idx-1352.2.mutant?diff=split&w=1
+
+Explanation:
+
+Returning "nth-last-child" instead of "nth-child* would introduce a behaviour change because now, the *getPseudoClass* method would return a value that would reverse the direction of pseudo classes in which they are searched and returned down the line.
+
+in CSS, "nth-child(3)" selects the would select the 3rd element from a list of pseudo classes, but "nth-last-child(3)" would select the 3rd last child starting from the end.
+

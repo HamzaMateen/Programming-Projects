@@ -1,0 +1,30 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.commons-compress.mid-2642.idx-2126.1.mutant..codebert-base.commons-compress.mid-2642.idx-2126.1.mutant?diff=unified&w
+
+Explanation:
+
+Backdrop:
+The *incrementAnnoN()* method in original version increments the annotation count for the last annotation type registered within a *band*.
+It doesn't accept any *index* argument because it's designed for a workflow where annotations are added incrementally to elements attached to the *band*s within a *context*.
+
+I derived this from the following code snippet where this method is used: 
+
+if (visible) {
+    // add annotation to the current band group.
+    class_RVA_bands.addAnnotation(desc, nameRU, tags, values, caseArrayN, nestTypeRS, nestNameRU, nestPairN);
+
+    // If the class already has this annotation, increase the count. [21th flag being set somehow indicates this.]
+
+    if ((class_flags[index] & (1 << 21)) != 0) {
+        class_RVA_bands.incrementAnnoN();
+    } 
+    else { // if this is the first annotation, create new entry with count 1
+        class_RVA_bands.newEntryInAnnoN();
+        class_flags[index] = class_flags[index] | (1 << 21);
+    }
+}
+
+src: [https://github.com/developing-research-projects/UIUCPlus/blob/main/commons-compress/src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java#L261]
+
+So in light of above discussion, the mutant qualifies as buggy because the *incrementAnnoN()* method now increments the count of *first* annotation type encountered instead of the most recently added annotation type.
+

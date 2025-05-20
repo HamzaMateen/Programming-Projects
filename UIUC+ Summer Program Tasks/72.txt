@@ -1,0 +1,12 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.gson.mid-836.idx-600.2.mutant..codet5-base.gson.mid-836.idx-600.2.mutant?diff=split&w=1
+
+Explanation:
+
+The *SerializationBenchmark* is a class that is used for testing the (de)serialization JSON. Its *setUp()* method initializes the internal *bag* (BagOfPrimitives) with one time random data before experimenting: *(10L, 1, false, "foo")*. 
+
+This data is used for testing purposes only, therefore it could be anything, for example, *(20L, 2, true, "baz")* or as in mutant: *(20L, 1, false, "foo")*. As long as the values are of the correct data type, the change is as valid as the original and would be helpful for testing.
+
+
+
+

@@ -1,0 +1,12 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-lang.mid-3744.idx-2804.1.mutant..codet5-base.commons-lang.mid-3744.idx-2804.1.mutant?diff=unified&w
+
+Explanation:
+
+The *BitSet* *toString()* method returns a string showing all *set* bit positions in a BitSet. It displays these positions as comma-separated numbers, in lowest to highest order e.g., "{0, 2, 5}"
+
+The original version returned this string as-is but the mutant changes that, and now it returns *null* instead. This breaks Java's Object contract for *toString()* which is a fundamental method inherited from *Object* class. The contract for *toString()* suggests that the returned string must contain useful information about the object. 
+
+The mutant breaks this contract which could lead to *NullPointerException*s, concatenation problems where a string is expected etc.
+
+Hence this mutant is buggy.

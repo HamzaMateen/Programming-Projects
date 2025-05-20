@@ -1,0 +1,16 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-codec.mid-628.idx-491.2.mutant..codet5-base.commons-codec.mid-628.idx-491.2.mutant?diff=unified&w
+
+Explanation:
+The mutant's *getInstance(NameType)* would always return *null* instead of the corresponding value for *NameType* key, therefore the mutant is buggy. 
+
+Elaboration:
+
+The static member *LANGUAGES* is of *EnumMap* type. It is a specialized and efficient map type in Java unlike the more general type called *HashMap*. It only accepts enum objects as its key type. 
+
+The *get(key)* method is defined to return the corresponding *value* of a *key* or *null* if a key doesn't exist in an EnumMap but in mutant's version, passing the *null* value to the *get* method would always return null [docs].
+
+Since the *getInstance(NameType)* method woudn't work reliably or in an expected manner by not returning the corresponding values for a passed key, this mutant is buggy.
+ 
+[docs] Null keys are not permitted. Attempts to insert a null key will throw NullPointerException. "Attempts to test for the presence of a null key or to remove one will, however, function properly". [https://docs.oracle.com/javase/8/docs/api/java/util/EnumMap.html]
+

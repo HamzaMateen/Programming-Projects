@@ -1,0 +1,12 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..NatGen-base.jfreechart.mid-8128.idx-52357.3.mutant?diff=split&w=1
+
+Explanation:
+
+In Java, data loss would occur if converting from *double* to *int*. This is because *double* can represent fractional values, and very large/small values due to its sheer size of 64-bit as opposed to 32-bit size of int.
+
+The mutated version first converts the provided *double* data to an *int* which would get rid of the fractional part (3.141 -> 3) or if it's too large a number, then it would be reduced maximum representable number by an int, that is, *Integer.MAX_VALUE* to fit into that data type. This data loss would lead to bugs that where precise values are needed to be passed to the *setIntervalPositionFactor(double)* method. 
+
+The code won't crash because Java promotes narrow datatype values (int) to wider data type values automatically, therefore the int *i* would be cast to a *double* automatically when passing it to the method in question.
+
+Hence, this mutant is buggy.

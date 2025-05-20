@@ -1,0 +1,17 @@
+Code:
+
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.jackson-dataformat-xml.mid-469.idx-371.3.mutant..NatGen-base.jackson-dataformat-xml.mid-469.idx-371.3.mutant?diff=split&w=
+
+Explanation:
+
+In mutant's version, the following line:
+
+_isCData = (isCData == null) ? false : isCData.booleanValue();
+
+is changed into: 
+
+_isCData = (isCData == null) ? _isAttribute : isCData.booleanValue();
+
+Replacing the value *false* by *_isAttribute* is syntactically correct because it's also a *boolean* type, but it would likely result in a bug because there's no apparent relation between a permanent *false* value and *_isAttribute* variable as these are independent pieces of information. Hence, one can't be replaced by another.
+
+This code also implies that if *_isText* happens to be *null*, it would be assigned the value of *_isAttribute*, which is undesired dependency of orthogonal variables.

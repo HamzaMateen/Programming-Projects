@@ -1,0 +1,17 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.jackson-dataformat-xml.mid-429.idx-349.2.mutant..codebert-base.jackson-dataformat-xml.mid-429.idx-349.2.mutant?diff=split&w=1
+
+Explanation:
+
+The change introduced in the mutant would result in a compilation failure. 
+
+Elaboration:
+
+In original version, the *getCodec()* method would have returned the stored *_objectCodec* if it was called on a derived class.
+
+But the following line introduced in the mutant:
+
+return _objectCodec == null ? null : _objectCodec.treeCodec();
+
+calls a *hypothetical* method *treeCodec()* on *_objectCodec* object when it's not null (injected by downstream extender). This method does not exist in either of abstract classes be that *ObjectCodec* or be it the one it extends called *TreeCodec*. None of these abstract classes declare this method. Therefore, it would result in a comple time error.
+

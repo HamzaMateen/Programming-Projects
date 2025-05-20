@@ -1,0 +1,10 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..codebert-base.commons-lang.mid-3138.idx-20754.3.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant's code basically replaced the *ternary* operation with an equivalent *try-catch* block so there wouldn't be any drastic change in the program behaviour. The outputs would remain the same across both instances.
+
+if a *null* argument is passed to *getTimeZone* method, it would return *null* back, because when the statement inside the try block is ran, it would throw *NullPointerException* that would be caught by the catch block, and therefore, its corresponding block would be run.
+
+In-case, there is some other exception thrown, for which there is no *exception* handling done beforehand, then that would have same effect on both versions, the program would crash.

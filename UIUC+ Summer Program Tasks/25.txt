@@ -1,0 +1,10 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.jackson-core.mid-2213.idx-1764.2.mutant..codebert-base.jackson-core.mid-2213.idx-1764.2.mutant?diff=split&w=1
+
+Explanation:
+
+Instead of returning *null*, the method *getParameterSource()* would now return the runtime class of the object without *generic* arguments (type resolved). For example, if it is called on List<String> object, then it would return "List.class" and not the full generic type. This alternative is not useful from generics standpoint but it is better than returning *null*.
+
+This change shouldn't change code's behavior.  Moreover,  it now provides some insight about the underlying class instead of returning a *null* value. The method is  deprecated now due to the limiation that it doesn't provide any information regarding generic type args due to type-erasure of Java.
+
+

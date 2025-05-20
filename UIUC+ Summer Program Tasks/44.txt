@@ -1,0 +1,17 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-leam-base.commons-lang.mid-3096.idx-3097.9.mutant..leam-base.commons-lang.mid-3096.idx-3097.9.mutant?diff=unified&w
+
+Explanation:
+
+The mutant would be buggy because it avoids copying of the *input* array received and essentially reassigns it to the internal *chars* array through casting. 
+
+Elaboration:
+The *reset(final char[])* method receives an array's *reference* and not a copy of the array object. Therefore, if its copy is not made inside *reset* method, it would be accessible outside the function, running the risk of external modification.
+
+In original version, the input array would be cloned before assigning it to the internal *chars* array. Even though the *clone* function performs a shallow copy, it wouldn't be a problem because *char* is a primitive type therefore, it is copied-by-value directly.
+
+The mutant changes this behaviour through mere *casting* of the input array to the internal. This means that it would still be accessible outside the function and modifiable. 
+
+The tokenizer might output tokens which weren't part of the actual input in case of external modification.
+
+

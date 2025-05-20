@@ -1,0 +1,20 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.jsoup.mid-952.idx-800.3.mutant..codebert-base.jsoup.mid-952.idx-800.3.mutant?diff=split&w=1
+
+Explanation:
+The change introduced in mutant would result in a bug because characters would be skipped during consumption (reading) of queue content.
+
+Explanation:
+The *TokenQueue* class implements a character queue. It maintains an internal index or pointer (pos) that tracks the current position of cursor. Whenever an alphanumeric character is consumed, *pos* is incremented. 
+
+The *consumeWord* reads the next whole word from queue. The code change in mutant would have *consumeWord* skip *2* characters before reading a word from text queue. This is a bug because the word returned would begin at *pos +2* instead of *pos*, effectively returning malformed word.
+
+Example:
+If original version at some point returned the HTML tag "<span>" from an HTML markup queue, then in the same scenario, the mutant version's *consumeWord* would return a malformed tag: "pan>" instead. 
+
+This shows how this bug could compromise a code tokenization operation.
+
+
+
+
+

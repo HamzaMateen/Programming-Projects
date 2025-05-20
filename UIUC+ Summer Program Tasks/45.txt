@@ -1,0 +1,11 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-NatGen-base.jfreechart.mid-6382.idx-4670.2.mutant..NatGen-base.jfreechart.mid-6382.idx-4670.2.mutant?diff=unified&w
+
+Explanation:
+
+The *ownToolTipInitialDelay* specifies the delay in milliseconds that a user must wait for before the tooltip appears on chart panel when the cursor is hovering over it. It must be positive value; otherwise the delay could be taken as instantaneous (negative delay doesn't make sense).
+
+The *setInitialDelay(int delay)* method is used to set it. 
+
+The mutant negates the provided value, which means that negative value is assigned to the *ownToolTipInitialDelay* variable whenever a positive value is provided. This changes the behaviour of the code because now, the user must provide negative delay durations for the method to work. This isn't the intended design, hence would count as a bug.
+

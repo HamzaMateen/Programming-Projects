@@ -1,0 +1,24 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.jsoup.mid-1058.idx-908.3.mutant..codebert-base.jsoup.mid-1058.idx-908.3.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant introduces an off-by-one bug into code because loop starts normal but it ends 1 index early as the condition (pos >= 0) is changed into (pos > 0). 
+
+It would not take a look at the lower-most (0th index) *Element* which would lead to undesired behaviour.
+
+
+For example: 
+
+Let's suppose we have the following stack currently:
+
+[0] div 
+[1] p 
+[2] span 
+[3] a
+
+and we make a call as: *popStackToBefore("h1")* where <h1> does not exist in the stack then the original version would have *emptied* the stack because it would remove every element that isn't <h1>
+
+The mutant compromises this behvior because now, it would not *empty* the stack, instead it would check until *2nd last* element and remove everything till then. It would not remove the lower-most tag <div> because the loop ends at "pos = 1" instead of "pos = 0"
+
+It would leave the <div> tag unclosed.

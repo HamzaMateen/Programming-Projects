@@ -1,0 +1,37 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.joda-time.mid-246.idx-243.1.mutant..codet5-base.joda-time.mid-246.idx-243.1.mutant?diff=split&w=1
+
+
+Explanation:
+
+The *getDeclaredMethod()* is capable of retrieving static or non-static methods with any *access modifier* as long as it hasn't been inherited from the *parent* class. In our case, the "getInstance()" method is a *public static* method and is part of "java.text.DateFormatSymbols" class. The *getDeclaredMethod()* method returns its "Method Object" and stores it in *method*.
+
+It's "public" so modifying its "accessibility" isn't necessary but it doesn't cause any problem and method's scope remains invariant. This "getInstance" method is later on invoked with "null" and "locale" arguements. The "null" is passed because it's a static method and doesn't require an "instance" for invocation, and "locale" for its expected parameter for "getInstance" method, respectively.
+
+So, the mutant is *not* buggy and would work identical to the original version.
+
+The "Method.Invoke()" would have thrown an *IllegalAccessException* if the method weren't accessible AND "setAccessible(true)" weren't called.
+
+
+
+
+***
+import java.lang.reflect.Method;
+
+class MyClass {
+    private void myMethod() {
+        System.out.println("Private method invoked");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        MyClass obj = new MyClass();
+        Method method = MyClass.getDeclaredMethod("myMethod");
+        method.setAccessible(true); // Allow access to the private method
+        method.invoke(obj); // Invoke the method
+    }
+}
+
+***
+

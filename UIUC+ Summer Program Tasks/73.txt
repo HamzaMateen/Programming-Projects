@@ -1,0 +1,13 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.commons-codec.mid-466.idx-357.2.mutant..codet5-base.commons-codec.mid-466.idx-357.2.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant introduces an off-by-one error to the code. 
+
+Elobaration:
+The *getNextPos()* uses the parent's protected *length* property that holds the character count of *data* array. The class uses this to determine the next character to be consumed by subtracting *length* from *data.length*. At first it gives 0 because *data.length = length*.
+
+Then, the *removeNext* method is used to traverse further in the array by decrementing the length by 1 (length--) yet the *data.length* remains the same. In next iteration, let's suppose, the *length* is 1 less than the actual length (data.length) which results in 1. This is the next character to be consumed (at index 1). And goes on till the array is exhausetively consumed by an iterator or in a loop. 
+
+By changing *data[getNextPos()]* to *data[getNextPos() + 1], we are essentially skipping the first character and it would also lead to *ArrayIndexOutOfBoundsException* in the last iteration as *getNextPos()+1* would equal *data.length* which is 1 greater than a valid Java array length. 

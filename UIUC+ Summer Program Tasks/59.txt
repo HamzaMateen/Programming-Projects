@@ -1,0 +1,17 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-mubert-base.jfreechart.mid-1040.idx-1041.117.mutant..mubert-base.jfreechart.mid-1040.idx-1041.117.mutant?diff=unified&w
+
+Explanation:
+
+TL;DR: 
+The code introduced is dead, and won't semantically alter the *equals()* method therefore the mutant isn't buggy.
+
+Elaboration:
+
+The condition introduced in the mutant version can never be logically true since the *this* pointer can never be *null* for an instance object. The existence of an object *necessitates* that its *this* reference points to its address. Also, *this* can't be reassigned to point to another object's address because it's a keyword in Java and implicitly *final* within every instance.
+
+As the first part of the condition *(this == null)* evidently always evaluates to false, the whole condition is logically deemed *false* due to && (AND) operation so the code inside is never executed. 
+
+This change eliminates the first condition from *equals(obj)* method - that is, *(this == obj)*, but it would still technically work the same though could be *less* efficient because this condition allowed for early return in case the passed object was the same instance on which *equals* was called.
+
+

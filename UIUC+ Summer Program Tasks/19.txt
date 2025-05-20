@@ -1,0 +1,23 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/main..NatGen-base.commons-math.mid-2398.idx-23806.2.mutant?diff=unified&w=
+
+Info:
+Unit in the last place (ULP) represents the value 2-23, which is approximately 1.192093e-07. The ULP is the distance between the closest straddling floating point numbers a and b (a ≤ x ≤ b, a ≠ b), assuming that the exponent range is not upper-bounded. The IEEE Round-to-Nearest modes produce results with a maximum error of one-half ULP. The other IEEE rounding modes (Round-to-Zero, Round-to-Positive-Infinity, and Round-to-Negative-Infinity) produce results with a maximum error of one ULP. (source: Intel)
+
+Explanation:
+
+The mutant introduces a bug that can prove to be harder to track down.
+
+The *Precision.equals* method uses ULP (Units in the Last Place) based values comparison. ULP represents the value 2e-23, which is approximately 1.192093e-07 [1]. 
+
+The expression *!Precision.equals(0.0, value, 1)* compares *value* to 0.0, with maximum allowed ULPs (maxUlps) equal to 1, that is, it returns true if the *value* lies in the range [0.0 - ULP, 0.0 + ULP].
+
+In original version, the *ensureZero* method throws a *NumberIsTooLargeException* exception if the *value* happens to be out of intended range. The exception is passed the absolute value of the *value*, meaning that even if *value < (0.0 - ULP)*, it is first converted to positive number to fit the description of the exception which is that *number is too large* to be considered equal to (0.0).
+
+The mutant effectively changes that, by passing (value * 2) to the exception instead. 
+In this case, if *value < (0.0 - ULP)*, then it becomes *value < (0.0 - 2 * ULP)*, which is approximately -2 ULPs below 0.0. The exception would report this value *(0.0 - 2 * ULP)* as being that number which is *too large than 0.0* even though it would be way smaller than 0.0.
+
+Since this is a critical Math library, it could affect a lot of downstream code that depends on it, compounding this error drastically down the line.
+
+
+[1]: Source: https://www.intel.com/content/www/us/en/docs/programmable/683242/current/unit-in-the-last-place.html

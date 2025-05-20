@@ -1,0 +1,10 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codebert-base.commons-codec.mid-192.idx-163.2.mutant..codebert-base.commons-codec.mid-192.idx-163.2.mutant?diff=split&w=1
+
+Explanation:
+
+The mutant would be buggy for a few reasons:
+
+Firstly, it breaks the *documentation* because it says that *sha3_512(final String date)* should produce SHA3_512 hashes for a given input. But with this change, it would not.
+
+Secondly, the mutant would generate a shorter (256 bits) hash which is inherently less powerful, as opposed to the intended SHA3_512 512 bits long hash. Even if this code is passed into production because it *works*, it would not serve its intended purpose.

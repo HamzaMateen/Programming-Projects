@@ -1,0 +1,19 @@
+Code:
+https://github.com/developing-research-projects/UIUCPlus/compare/formatted-main-codet5-base.gson.mid-51.idx-31.3.mutant..codet5-base.gson.mid-51.idx-31.3.mutant?diff=unified&w
+
+Explanation:
+
+The mutant introduces a bug because in mutant's *withIndent()* method, the second argument to FormattingStyle's constructor is a null value.
+
+Elaboration:
+
+The *withIndent()* method constructs a new instance of *FormattingStyle* class. This class' constructor *requires* its arguments to be *non-null*. If any of them happens to be a null value, the constructor would throw the *NullPointerException* exception and fail at runtime.
+
+Moreover, the *indent* string is passed to the *newLine* parameter, which is also not correct because *newLine* parameter only accepts strings of the form: "[\r\n]*". In case early termination hadn't occurred due to the null argument, this problem would have also crashed the program.
+
+The *withIndent()* method should be creating a well-formatted style with existing newline and the providied indent string.
+
+
+
+
+
